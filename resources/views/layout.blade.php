@@ -17,7 +17,12 @@
 
 <body>
     <x-header />
-    <x-hero />
+
+    @if (request()->is('/'))
+        <x-hero />
+        <x-top-banner />
+    @endif
+
     <main class="container p-4 mx-auto mt-4">
         {{ $slot }}
     </main>
