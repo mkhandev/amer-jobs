@@ -1,7 +1,7 @@
 <header class="p-4 text-white bg-blue-900">
     <div class="container flex items-center justify-between mx-auto">
         <h1 class="text-3xl font-semibold">
-            <a href="index.html">Workopia</a>
+            <a href="{{ url('/') }}">Workopia</a>
         </h1>
         <nav class="items-center hidden space-x-4 md:flex">
             <x-nav-link url="{{ url('/') }}" :active="request()->is('/')">Home</x-nav-link>
