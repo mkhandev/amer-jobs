@@ -12,6 +12,7 @@
         integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="//unpkg.com/alpinejs" defer></script>
     @vite('resources/css/app.css')
 </head>
 
@@ -24,6 +25,13 @@
     @endif
 
     <main class="container p-4 mx-auto mt-4">
+        @if (session('success'))
+            <x-alert type="success" message="{{ session('success') }}" />
+        @endif
+        @if (session('error'))
+            <x-alert type="error" message="{{ session('error') }}" />
+        @endif
+
         {{ $slot }}
     </main>
 
