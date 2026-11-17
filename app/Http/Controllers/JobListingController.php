@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JobListing;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JobListingController extends Controller
 {
@@ -63,5 +64,63 @@ class JobListingController extends Controller
         JobListing::create($validatedData);
 
         return redirect()->route('jobs.index')->with('success', 'Job listing created successfully!');
+    }
+
+    public function edit(JobListing $job)
+    {
+        return view('jobs.edit', compact('job'));
+    }
+
+    public function update(Request $request, JobListing $job)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'salary' => 'required|integer',
+            'tags' => 'nullable|string',
+            'job_type' => 'required|string',
+            'remote' => 'required|boolean',
+            'requirements' => 'nullable|string',
+            'benefits' => 'nullable|string',
+            'address' => 'nullable|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'zipcode' => 'nullable|string',
+            'contact_email' => 'required|string',
+            'contact_phone' => 'nullable|string',
+            'company_name' => 'required|string',
+            'company_description' => 'nullable|string',
+            'company_logo' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048',
+            'company_website' => 'nullable|url'
+        ]);
+
+        // Check for image
+        if ($request->hasFile('company_logo')) {
+
+            // Delete old logo
+            Storage::disk('public')->delete($job->company_logo);
+
+            // Store the file and get path
+            $path = $request->file('company_logo')->store('logos', 'public');
+
+            // Add path to validated data
+            $validatedData['company_logo'] = $path;
+        }
+
+        $job->update($validatedData);
+
+        return redirect()->route('jobs.index')->with('success', 'Job listing updated successfully!');
+    }
+
+    public function destroy(JobListing $job)
+    {
+
+        if ($job->company_logo) {
+            Storage::disk('public')->delete($job->company_logo);
+        }
+
+        $job->delete();
+
+        return redirect()->route('jobs.index')->with('success', 'Job listing deleted successfully!');
     }
 }

@@ -17,7 +17,7 @@
             <x-inputs.text-area id="description" name="description" label="Description"
                 placeholder="We are seeking a skilled and motivated Software Developer..." />
 
-            <x-inputs.text id="salary" name="salary" label="Salary" type="text" placeholder="90000" />
+            <x-inputs.text id="salary" name="salary" label="Salary" type="number" placeholder="90000" />
 
             <x-inputs.text-area id="requirements" name="requirements" label="Requirements"
                 placeholder="Bachelor's degree in Computer Science" />
