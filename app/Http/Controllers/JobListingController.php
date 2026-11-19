@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobListing;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class JobListingController extends Controller
@@ -49,7 +51,7 @@ class JobListingController extends Controller
         ]);
 
         // Hardcoded user ID
-        $validatedData['user_id'] = 1;
+        $validatedData['user_id'] = Auth::id();
 
         // Check for image
         if ($request->hasFile('company_logo')) {
@@ -68,11 +70,15 @@ class JobListingController extends Controller
 
     public function edit(JobListing $job)
     {
+        Gate::authorize('update', $job);
+
         return view('jobs.edit', compact('job'));
     }
 
     public function update(Request $request, JobListing $job)
     {
+        Gate::authorize('update', $job);
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -114,6 +120,7 @@ class JobListingController extends Controller
 
     public function destroy(JobListing $job)
     {
+        Gate::authorize('delete', $job);
 
         if ($job->company_logo) {
             Storage::disk('public')->delete($job->company_logo);
