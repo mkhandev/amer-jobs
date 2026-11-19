@@ -19,7 +19,7 @@ input[type="url"],
 input[type="file"],
 select,
 textarea {
-    @apply w-full rounded-md border border-gray-300 px-3 py-2;
+    border: 1px solid #3b82f6;
     color: #374151;
 }
 
@@ -30,5 +30,6 @@ input[type="url"]:focus,
 input[type="file"]:focus,
 select:focus,
 textarea:focus {
-    @apply border-blue-500 outline-none;
+    border: 1px solid #3b82f6;
+    outline: none;
 }
