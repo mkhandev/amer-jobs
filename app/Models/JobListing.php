@@ -19,4 +19,9 @@ class JobListing extends Model
     {
         return $this->belongsToMany(User::class, 'job_user_bookmarks', 'job_listing_id', 'user_id')->withTimestamps();
     }
+
+    public function applicants()
+    {
+        return $this->hasMany(Applicant::class);
+    }
 }

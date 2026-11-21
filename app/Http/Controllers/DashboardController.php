@@ -12,7 +12,12 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        $jobs = JobListing::where('user_id', $user->id)->take(5)->get();
+        $jobs = JobListing::where('user_id', $user->id)->with('applicants')->get();
+        //$jobs = JobListing::where('user_id', $user->id)->with('applicants')->get()->toArray();
+
+        // echo '<pre>';
+        // print_r($jobs);
+        // exit;
 
         return view('dashboard.index', compact('user', 'jobs'));
     }
