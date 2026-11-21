@@ -11,7 +11,7 @@
                 <x-logout-button />
 
                 <div class="flex items-center space-x-3">
-                    <a href="#">
+                    <a href="{{ route('dashboard') }}">
                         @if (Auth::user()->avatar)
                             <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}"
                                 class="w-10 h-10 rounded-full">

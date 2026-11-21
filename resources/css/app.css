@@ -19,8 +19,8 @@ input[type="url"],
 input[type="file"],
 select,
 textarea {
-    border: 1px solid #3b82f6;
-    color: #374151;
+    /* border: 1px solid #3b82f6;
+    color: #374151; */
 }
 
 input[type="text"]:focus,
@@ -30,6 +30,6 @@ input[type="url"]:focus,
 input[type="file"]:focus,
 select:focus,
 textarea:focus {
-    border: 1px solid #3b82f6;
-    outline: none;
+    /* border: 1px solid #3b82f6;
+    outline: none; */
 }

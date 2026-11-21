@@ -14,4 +14,14 @@ class JobListing extends Model
     {
         $this->belongsTo(User::class);
     }
+
+    public function bookMarkedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'job_user_bookmarks', 'job_listing_id', 'user_id')->withTimestamps();
+    }
+
+    public function applicants()
+    {
+        return $this->hasMany(Applicant::class);
+    }
 }
