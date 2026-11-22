@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobApplied;
 use App\Models\Applicant;
 use App\Models\JobListing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicantController extends Controller
 {
@@ -30,13 +32,17 @@ class ApplicantController extends Controller
 
         if ($request->hasFile('resume')) {
             $path = $request->file('resume')->store('resumes', 'public');
-            $validatedData["resume_path"] = $path;
+            $validatedData['resume_path'] = $path;
         }
 
-        $validatedData["user_id"] = auth()->id();
-        $validatedData['job_listing_id'] = $jobListing->id;
+        // Store the application
+        $application = new Applicant($validatedData);
+        $application->job_listing_id = $jobListing->id;
+        $application->user_id = auth()->id();
+        $application->save();
 
-        $jobListing->applicants()->create($validatedData);
+        //send email
+        Mail::to('mkhancse@gmail.com')->send(new JobApplied($application, $jobListing));
 
         return redirect()->back()->with('success', 'Your application has been submitted');
     }
