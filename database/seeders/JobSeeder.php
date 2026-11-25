@@ -33,6 +33,7 @@ class JobSeeder extends Seeder
             }
 
             // Add timestamps
+            $listing['user_id'] = 1;
             $listing['created_at'] = now();
             $listing['updated_at'] = now();
         }

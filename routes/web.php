@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\DashboardController;
@@ -10,10 +12,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -45,3 +43,10 @@ Route::put('/profile', [ProfileController::class, 'update'])->name('profile.upda
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/geocode', [GeocodeController::class, 'geocode']);
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
+        ->name('dashboard.index');
+
+    Route::resource('jobs', JobController::class);
+});

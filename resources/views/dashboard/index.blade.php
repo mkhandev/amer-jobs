@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.frontend.layout>
     <section class="flex flex-col md:flex-row gap-4">
         {{-- Profile Info Form --}}
         <div class="bg-white p-8 rounded-lg shadow-md w-full">
@@ -99,4 +99,4 @@
         </div>
     </section>
     <x-bottom-banner />
-</x-layout>
+</x-layouts.frontend.layout>
