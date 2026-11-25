@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.frontend.layout>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <!-- Job Details Column -->
         <section class="md:col-span-3">
@@ -171,7 +171,7 @@
 
         </aside>
     </div>
-</x-layout>
+</x-layouts.frontend.layout>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>

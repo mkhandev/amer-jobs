@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.frontend.layout>
     <h2 class="text-3xl text-center mb-4 font-bold border border-gray-300 p-3">
         Bookmarked Jobs
     </h2>
@@ -10,4 +10,4 @@
         @endforelse
     </div>
 
-</x-layout>
+</x-layouts.frontend.layout>
