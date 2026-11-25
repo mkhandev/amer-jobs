@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.frontend.layout>
     <x-slot name="title">Edit Job Listing</x-slot>
     <div class="bg-white mx-auto p-8 rounded-lg shadow-md w-full md:max-w-3xl">
         <h2 class="text-4xl text-center font-bold mb-4">
@@ -9,8 +9,6 @@
     <form method="POST" action="{{ route('jobs.update', $job->id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
-        <p>{{ $job->title }}</p>
         <x-inputs.text id="title" name="title" label="Job Title" placeholder="Software Engineer" :value="$job->title" />
 
         <x-inputs.text-area id="description" name="description" label="Description"
@@ -78,4 +76,4 @@
             Save
         </button>
     </form>
-</x-layout>
+</x-layouts.frontend.layout>

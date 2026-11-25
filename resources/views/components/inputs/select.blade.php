@@ -1,11 +1,19 @@
 @props(['id', 'name', 'label' => null, 'value' => '', 'options' => []])
 
+@php
+    $customClass = $attributes->get('class', '');
+
+    $labelClass = str_contains($customClass, 'form-select') ? 'form-label' : 'block text-gray-700';
+@endphp
+
 <div class="mb-4">
     @if ($label)
-        <label class="block text-gray-700" for="{{ $id }}">{{ $label }}</label>
+        <label class="{{ $labelClass }}" for="{{ $id }}">{{ $label }}</label>
     @endif
     <select id="{{ $id }}" name="{{ $name }}"
-        class="w-full px-4 py-2 border rounded focus:outline-none @error($name) border-red-500 @enderror">
+        {{ $attributes->merge([
+            'class' => 'w-full px-2 py-2 border rounded focus:outline-none' . ($errors->has($name) ? ' border-red-500' : ''),
+        ]) }}>
 
         @foreach ($options as $optionValue => $optionLabel)
             <option value="{{ $optionValue }}" {{ old($name, $value) == $optionValue ? 'selected' : '' }}>

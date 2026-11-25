@@ -20,7 +20,8 @@ class JobListingFactory extends Factory
     {
         return [
             //'user_id' => User::factory(),
-            'user_id' => User::inRandomOrder()->value('id'),
+            //'user_id' => User::inRandomOrder()->value('id'),
+            'user_id' => 1,
 
             'title' => fake()->jobTitle(),
             'description' => fake()->paragraphs(3, true),

@@ -14,7 +14,7 @@ class BookmarkSeeder extends Seeder
      */
     public function run(): void
     {
-        $testUser = User::where('email', 'test@test.com')->first();
+        $testUser = User::where('id', 2)->first();
         $jobIds = JobListing::pluck('id')->toArray();
         $randomJobIds = array_rand($jobIds, 5);
 
