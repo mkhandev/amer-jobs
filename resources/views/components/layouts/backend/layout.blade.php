@@ -131,6 +131,10 @@
             <div class="app-content">
                 <!--begin::Container-->
                 <div class="container-fluid">
+
+                    {{-- Flash Messages --}}
+                    <x-layouts.backend.flash-message />
+
                     {{ $slot }}
                 </div>
                 <!--end::Container-->
