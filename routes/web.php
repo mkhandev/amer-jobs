@@ -2,6 +2,9 @@
 
 
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\DashboardController;
@@ -12,7 +15,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 //Route::resource('jobs', JobListingController::class);
@@ -48,5 +50,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
         ->name('dashboard.index');
 
-    Route::resource('jobs', JobController::class);
+    Route::resource('/jobs', JobController::class);
+    Route::resource('/permissions', PermissionController::class)->only(['index', 'create', 'edit', 'store', 'update']);
+    Route::resource('/roles', RoleController::class);
+
+    Route::resource('/users', UserController::class)->only('index', 'create', 'store', 'edit', 'update');
 });

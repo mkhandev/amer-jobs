@@ -22,12 +22,15 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Jobs Table</h3>
-                        <a href="{{ route('admin.jobs.create') }}" class="btn btn-sm btn-primary">Add Job</a>
+                        <a href="{{ route('admin.jobs.create') }}" class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
+                            Add Job
+                        </a>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
@@ -36,7 +39,7 @@
                                 <th class="text-center">Remote</th>
                                 <th>Address</th>
                                 <th style="width: 40px" class="text-center">Applicant</th>
-                                <th class="text-center" style="width: 150px;">Option</th>
+                                <th class="text-end" style="width: 100px;">Option</th>
                             </tr>
                         </thead>
                         <tbody>
