@@ -46,13 +46,16 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/geocode', [GeocodeController::class, 'geocode']);
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
-        ->name('dashboard.index');
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth', 'admin'])
+    ->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
+            ->name('dashboard.index');
 
-    Route::resource('/jobs', JobController::class);
-    Route::resource('/permissions', PermissionController::class)->only(['index', 'create', 'edit', 'store', 'update']);
-    Route::resource('/roles', RoleController::class);
+        Route::resource('/jobs', JobController::class);
+        Route::resource('/permissions', PermissionController::class)->only(['index', 'create', 'edit', 'store', 'update']);
+        Route::resource('/roles', RoleController::class);
 
-    Route::resource('/users', UserController::class)->only('index', 'create', 'store', 'edit', 'update');
-});
+        Route::resource('/users', UserController::class)->only('index', 'create', 'store', 'edit', 'update');
+    });

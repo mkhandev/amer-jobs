@@ -228,17 +228,17 @@
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <img src="{{ asset('/adminlte/assets/img/user2-160x160.jpg') }}"
-                        class="user-image rounded-circle shadow" alt="Alexander Pierce" />
-                    <span class="d-none d-xl-inline">Alexander Pierce</span>
+                        class="user-image rounded-circle shadow" alt="{{ auth()->user()?->name ?? 'Guest' }}" />
+                    <span class="d-none d-xl-inline">{{ auth()->user()?->name ?? 'Guest' }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!--begin::User Image-->
                     <li class="user-header text-bg-primary">
                         <img src="{{ asset('/adminlte/assets/img/user2-160x160.jpg') }}" class="rounded-circle shadow"
-                            alt="Alexander Pierce" />
+                            alt="{{ auth()->user()?->name ?? 'Guest' }}" />
                         <p>
-                            Alexander Pierce - Web Developer
-                            <small>Member since Nov. 2023</small>
+                            {{ auth()->user()?->name ?? 'Guest' }}
+
                         </p>
                     </li>
                     <!--end::User Image-->
@@ -262,7 +262,18 @@
                     <!--begin::Menu Footer-->
                     <li class="user-footer">
                         <a href="#" class="btn btn-outline-secondary">Profile</a>
-                        <a href="#" class="btn btn-outline-danger float-end">Sign out</a>
+                        {{-- <a href="#" class="btn btn-outline-danger float-end">Sign out</a> --}}
+
+                        {{-- <x-logout-button /> --}}
+
+                        <form method="POST" action="{{ route('logout') }}" style="display: inline">
+                            @csrf
+                            <button type="submit"
+                                class="btn btn-outline-danger float-end cursor-pointer hover:underline">
+                                <i class="fa fa-sign-out text-white"></i> Logout
+                            </button>
+                        </form>
+
                     </li>
                     <!--end::Menu Footer-->
                 </ul>

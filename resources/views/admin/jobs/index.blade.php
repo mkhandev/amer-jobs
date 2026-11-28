@@ -39,7 +39,10 @@
                                 <th class="text-center">Remote</th>
                                 <th>Address</th>
                                 <th style="width: 40px" class="text-center">Applicant</th>
-                                <th class="text-end" style="width: 100px;">Option</th>
+
+                                @canany(['Jobs View', 'Jobs Edit', 'Jobs Add'])
+                                    <th class="text-end" style="width: 100px;">Option</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -61,33 +64,40 @@
                                         </span>
                                     </td>
 
-                                    <td class="text-end">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="{{ route('admin.jobs.show', $job->id) }}"
-                                                class="btn btn-outline-secondary" aria-label="View Job">
-                                                <i class="bi bi-eye" aria-hidden="true"> </i>
-                                            </a>
+                                    @canany(['Jobs View', 'Jobs Edit', 'Jobs Add'])
+                                        <td class="text-end">
 
-                                            <a href="{{ route('admin.jobs.edit', $job->id) }}"
-                                                class="btn btn-outline-secondary" aria-label="Edit Job">
-                                                <i class="bi bi-pencil" aria-hidden="true"> </i>
-                                            </a>
+                                            <div class="btn-group btn-group-sm">
+                                                @can('Jobs View')
+                                                    <a href="{{ route('admin.jobs.show', $job->id) }}"
+                                                        class="btn btn-outline-secondary" aria-label="View Job">
+                                                        <i class="bi bi-eye" aria-hidden="true"> </i>
+                                                    </a>
+                                                @endcan
 
-                                            <form action="{{ route('admin.jobs.destroy', $job) }}" method="POST"
-                                                class="d-inline btn btn-outline-danger"
-                                                onsubmit="return confirm('Are you sure?')">
+                                                @can('Jobs Edit')
+                                                    <a href="{{ route('admin.jobs.edit', $job->id) }}"
+                                                        class="btn btn-outline-secondary" aria-label="Edit Job">
+                                                        <i class="bi bi-pencil" aria-hidden="true"> </i>
+                                                    </a>
+                                                @endcan
 
-                                                @csrf
-                                                @method('DELETE')
+                                                @can('Jobs Add')
+                                                    <form action="{{ route('admin.jobs.destroy', $job) }}" method="POST"
+                                                        class="d-inline btn btn-outline-danger"
+                                                        onsubmit="return confirm('Are you sure?')">
 
-                                                <button type="submit" class="border-0 bg-transparent">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
+                                                        @csrf
+                                                        @method('DELETE')
 
-
-                                        </div>
-                                    </td>
+                                                        <button type="submit" class="border-0 bg-transparent">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </div>
+                                        </td>
+                                    @endcanany
                                 </tr>
                             @empty
                                 <tr>
