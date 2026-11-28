@@ -48,12 +48,14 @@
                                     <td>{{ $per->name }}</td>
 
                                     <td class="text-end">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="{{ route('admin.permissions.edit', $per->id) }}"
-                                                class="btn btn-outline-secondary" aria-label="Edit Job">
-                                                <i class="bi bi-pencil" aria-hidden="true"> </i>
-                                            </a>
-                                        </div>
+                                        @can('Permissions Edit')
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{{ route('admin.permissions.edit', $per->id) }}"
+                                                    class="btn btn-outline-secondary" aria-label="Edit Job">
+                                                    <i class="bi bi-pencil" aria-hidden="true"> </i>
+                                                </a>
+                                            </div>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

@@ -22,10 +22,12 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">Roles Table</h3>
-                        <a href="{{ route('admin.roles.create') }}" class="btn btn-sm btn-primary">
-                            <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
-                            Add Roles
-                        </a>
+                        @can('Roles Add')
+                            <a href="{{ route('admin.roles.create') }}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
+                                Add Roles
+                            </a>
+                        @endcan
                     </div>
                 </div>
 
@@ -53,22 +55,26 @@
 
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm">
-                                            <a href="{{ route('admin.roles.edit', $role->id) }}"
-                                                class="btn btn-outline-secondary" aria-label="Edit Job">
-                                                <i class="bi bi-pencil" aria-hidden="true"> </i>
-                                            </a>
+                                            @can('Roles Edit')
+                                                <a href="{{ route('admin.roles.edit', $role->id) }}"
+                                                    class="btn btn-outline-secondary" aria-label="Edit Job">
+                                                    <i class="bi bi-pencil" aria-hidden="true"> </i>
+                                                </a>
+                                            @endcan
 
-                                            <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST"
-                                                class="d-inline btn btn-outline-danger"
-                                                onsubmit="return confirm('Are you sure?')">
+                                            @can('Roles Delete')
+                                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST"
+                                                    class="d-inline btn btn-outline-danger"
+                                                    onsubmit="return confirm('Are you sure?')">
 
-                                                @csrf
-                                                @method('DELETE')
+                                                    @csrf
+                                                    @method('DELETE')
 
-                                                <button type="submit" class="border-0 bg-transparent">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
+                                                    <button type="submit" class="border-0 bg-transparent">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

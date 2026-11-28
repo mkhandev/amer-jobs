@@ -7,9 +7,20 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Users List', only: ['index']),
+            new Middleware('permission:Users Add', only: ['create', 'store']),
+            new Middleware('permission:Users Edit', only: ['edit', 'update']),
+        ];
+    }
+
     public function index()
     {
         $users = User::orderBy('id', 'desc')->where('user_type', 1)->paginate(10);
@@ -28,7 +39,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:2',
+            'password' => 'required|string|min:6',
             'roles' => 'required|array',
             'roles.*' => 'required|string|exists:roles,name',
         ], [
@@ -37,7 +48,7 @@ class UserController extends Controller
             'email.email' => 'Please enter a valid email address.',
             'email.unique' => 'This email is already registered.',
             'password.required' => 'Please enter password.',
-            'password.min' => 'Password must be at least 8 characters.',
+            'password.min' => 'Password must be at least 6 characters.',
             'roles.required' => 'Please select role.',
             'roles.*.exists' => 'One or more selected roles are invalid.',
         ]);
@@ -71,7 +82,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:6',
             'roles' => 'nullable|array',
             'roles.*' => 'required|string|exists:roles,name',
         ], [
@@ -79,8 +90,7 @@ class UserController extends Controller
             'email.required' => 'Please enter email address.',
             'email.email' => 'Please enter a valid email address.',
             'email.unique' => 'This email is already registered.',
-            'password.min' => 'Password must be at least 8 characters.',
-            'password.confirmed' => 'Password confirmation does not match.',
+            'password.min' => 'Password must be at least 6 characters.',
             'roles.*.exists' => 'One or more selected roles are invalid.',
         ]);
 

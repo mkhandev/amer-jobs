@@ -8,7 +8,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="{{ route('admin.permissions.index') }}">Roles</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Add Role</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Role</li>
                     </ol>
                 </nav>
             </div>

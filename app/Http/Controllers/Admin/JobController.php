@@ -7,9 +7,22 @@ use App\Models\JobListing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class JobController extends Controller
+class JobController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Jobs List', only: ['index']),
+            new Middleware('permission:Jobs View', only: ['show']),
+            new Middleware('permission:Jobs Add', only: ['create', 'store']),
+            new Middleware('permission:Jobs Edit', only: ['edit', 'update']),
+            new Middleware('permission:Jobs Delete', only: ['destroy']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

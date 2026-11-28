@@ -7,9 +7,20 @@ use App\Models\JobListing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PermissionController extends Controller
+class PermissionController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Permissions List', only: ['index', 'show']),
+            new Middleware('permission:Permissions Add', only: ['create', 'store']),
+            new Middleware('permission:Permissions Edit', only: ['edit', 'update']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -36,7 +47,7 @@ class PermissionController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'module_name' => 'required|in:Dashboard,Jobs,Permissions,Roles',
+                'module_name' => 'required|in:Dashboard,Jobs,Permissions,Roles,Users',
                 'name' => 'required|string|max:255|unique:permissions,name',
             ],
             [
@@ -71,7 +82,7 @@ class PermissionController extends Controller
             [
                 'module_name' => [
                     'required',
-                    'in:Dashboard,Jobs,Permissions,Roles'
+                    'in:Dashboard,Jobs,Permissions,Roles,Users'
                 ],
                 'name' => [
                     'required',
