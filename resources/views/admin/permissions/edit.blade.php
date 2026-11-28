@@ -33,6 +33,7 @@
                                 'Jobs' => 'Jobs',
                                 'Permissions' => 'Permissions',
                                 'Roles' => 'Roles',
+                                'Users' => 'Users',
                             ]" />
 
 

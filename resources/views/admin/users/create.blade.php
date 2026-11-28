@@ -7,7 +7,7 @@
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.permissions.index') }}">Users</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">Users</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Add User</li>
                     </ol>
                 </nav>

@@ -35,6 +35,7 @@
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>Name</th>
+                                <th>Email</th>
                                 <th>Role</th>
                                 <th class="text-end" style="width: 100px;">Option</th>
                             </tr>
@@ -45,6 +46,7 @@
                                 <tr class="align-middle">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>
                                         @foreach ($user->getRoleNames() as $role)
                                             <span class="badge text-bg-success">{{ $role }}</span>
@@ -52,12 +54,14 @@
                                     </td>
 
                                     <td class="text-end">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="{{ route('admin.users.edit', $user->id) }}"
-                                                class="btn btn-outline-secondary" aria-label="Edit Job">
-                                                <i class="bi bi-pencil" aria-hidden="true"> </i>
-                                            </a>
-                                        </div>
+                                        @can('Users Edit')
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{{ route('admin.users.edit', $user->id) }}"
+                                                    class="btn btn-outline-secondary" aria-label="Edit Job">
+                                                    <i class="bi bi-pencil" aria-hidden="true"> </i>
+                                                </a>
+                                            </div>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty
